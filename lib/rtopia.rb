@@ -1,9 +1,14 @@
 module Rtopia
+  def self.R(*args)
+    @rtopia ||= Object.new.extend(self)
+
+    @rtopia.R(*args)
+  end
+
   def R(*args)
     args.unshift('/').map { |arg| to_param(arg) }.join('/').squeeze('/')
   end
 
-private
   def to_param_ruby19(object)
     if object.respond_to?(:to_param)
       object.to_param

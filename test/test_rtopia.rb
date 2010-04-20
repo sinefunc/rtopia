@@ -56,4 +56,8 @@ class TestRtopia < Test::Unit::TestCase
   def test_R_of_entries_entry_with_id_10_is_entries_10
     assert_equal '/entries/10', R(:entries, Entry.new(10))
   end
+
+  def test_Rtopia_R_is_calleable_directly
+    assert_equal '/items/yeah/boi', Rtopia.R(:items, :yeah, :boi)
+  end
 end
