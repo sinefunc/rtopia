@@ -4,7 +4,7 @@ A very simple, but useful route generation helper for use anytime, anywhere.
 
 == Assumptions
 
-At checks for a `to_param`, and if Ruby1.9 or greater is used, checks for an `id`. Last fallback uses `to_s`.
+It checks for a `to_param`, and if Ruby1.9 or greater is used, checks for an `id`. Last fallback uses `to_s`.
 
 == Examples
 
@@ -23,7 +23,7 @@ At checks for a `to_param`, and if Ruby1.9 or greater is used, checks for an `id
 
     @entry = Entry.create # has an id of 1001 for example
     R(@entry) # => '/1001'
-    R(:entry, @entry) # => '/entries/1001'
+    R(:entry, @entry) # => '/entry/1001'
 
 
 == Note on Patches/Pull Requests
