@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rtopia"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{A cute helper for route generation}
+    gem.description = %Q{For use anywhere you have objects with to_params, ids, or just to_s's}
     gem.email = "sinefunc@gmail.com"
     gem.homepage = "http://github.com/sinefunc/rtopia"
     gem.authors = ["Sinefunc"]
