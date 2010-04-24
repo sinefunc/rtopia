@@ -2,10 +2,8 @@ require 'uri'
 require 'cgi'
 
 module Rtopia
-  def self.R(*args)
-    @rtopia ||= Object.new.extend(self)
-    @rtopia.R(*args)
-  end
+  # In order to be able to do `Rtopia::R`, Rtopia needs to extend itself
+  extend self
 
   # Usage:
   #
