@@ -1,14 +1,13 @@
+require 'uri'
+require 'cgi'
+
 module Rtopia
   def self.R(*args)
     @rtopia ||= Object.new.extend(self)
-
     @rtopia.R(*args)
   end
 
-  # Pass any collection of objects
-  # R will use it's :to_param, then :id (if ruby19), then :to_s
-  #
-  # Examples:
+  # Usage:
   #
   #    R(:items) # => /items
   #    
@@ -17,15 +16,55 @@ module Rtopia
   #    R(@person, :posts) # => '/john-doe/posts'
   #    R(@person, :posts, :replied) # => '/john-doe/posts/replied'
   #
-  #    @entry = Entry.create # has an id of 1001 for example
+  #    @entry = Entry.create # has an id of 1001 for example and Ruby1.9
   #    R(@entry) # => '/1001'
   #    R(:entry, @entry) # => '/entry/1001'
   #   
+  #    R(:search, :q => 'Ruby', :page => 1) => '/search?q=Ruby&page=1'
+  #    R(:q => 'Ruby', :page => 1) => '?q=Ruby&page=1'
+  #    R(:q => ['first, 'second']) => '?q[]=first&q[]=second'
+  #    R(:user => { :lname => 'Doe', :fname => 'John' })
+  #    => '?user[lname]=Doe&user[fname]=John'
+  #
   def R(*args)
-    args.unshift('/').map { |arg| to_param(arg) }.join('/').squeeze('/')
+    hash = args.last.is_a?(Hash) ? args.pop : {}
+
+    # No args, so we opt to make ?q=Ruby&page=1 style URIs
+    if hash.any? and args.empty?
+      '?' + query_string(hash)
+    else
+      r = args.unshift('/').map { |arg| to_param(arg) }.join('/').squeeze('/')
+      if hash.any?
+        r << '?'
+        r << query_string(hash)
+      end
+      r
+    end
   end
 
 private
+  def query_string(hash)
+    hash.inject([]) { |arr, (key, value)|
+      if value.is_a?(Array)
+        value.each do |e|
+          arr << to_query("#{key}[]", e)
+        end
+        arr
+      elsif value.is_a?(Hash)
+        value.each do |namespace, deeper|
+          arr << to_query("#{key}[#{namespace}]", deeper)
+        end
+        arr
+      else
+        arr << to_query(key, value)
+      end
+    }.join('&')
+  end
+
+  def to_query(k, v)
+    '%s=%s' % [CGI.escape(k.to_s), URI.escape(to_param(v))]
+  end
+
   # Primary difference of this method is that it checks if
   # the passed object has an :id method
   # after checking for a :to_param

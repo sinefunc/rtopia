@@ -60,4 +60,22 @@ class TestRtopia < Test::Unit::TestCase
   def test_Rtopia_R_is_calleable_directly
     assert_equal '/items/yeah/boi', Rtopia.R(:items, :yeah, :boi)
   end
+
+  def test_Rtopia_R_with_just_hash_returns_query_string
+    assert_equal '?q=Ruby&page=1', Rtopia.R(:q => 'Ruby', :page => 1)
+  end
+
+  def test_Rtopia_R_with_search_then_hash_returns_search_with_query_string
+    assert_equal '/search?q=Ruby&page=1', R(:search, :q => 'Ruby', :page => 1)
+  end
+
+  def test_Rtopia_R_of_array_produces_empty_brackets
+    assert_equal '/search?q%5B%5D=first&q%5B%5D=second', 
+      R(:search, :q => ['first', 'second'])
+  end
+
+  def test_Rtopia_R_of_nested_hash_produces_namespaced_hash
+    assert_equal '/users?user%5Blname%5D=Doe&user%5Bfname%5D=John', 
+      R(:users, :user => { :lname => 'Doe', :fname => 'John' })
+  end
 end
