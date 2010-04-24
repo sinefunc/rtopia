@@ -47,21 +47,21 @@ private
     hash.inject([]) { |arr, (key, value)|
       if value.is_a?(Array)
         value.each do |e|
-          arr << to_query("#{key}[]", e)
+          arr << key_value("#{key}[]", e)
         end
         arr
       elsif value.is_a?(Hash)
         value.each do |namespace, deeper|
-          arr << to_query("#{key}[#{namespace}]", deeper)
+          arr << key_value("#{key}[#{namespace}]", deeper)
         end
         arr
       else
-        arr << to_query(key, value)
+        arr << key_value(key, value)
       end
     }.join('&')
   end
 
-  def to_query(k, v)
+  def key_value(k, v)
     '%s=%s' % [CGI.escape(k.to_s), URI.escape(to_param(v))]
   end
 
