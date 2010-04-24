@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rtopia}
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Sinefunc"]
-  s.date = %q{2010-04-21}
+  s.date = %q{2010-04-25}
   s.description = %q{For use anywhere you have objects with to_params, ids, or just to_s's}
   s.email = %q{sinefunc@gmail.com}
   s.extra_rdoc_files = [
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/sinefunc/rtopia}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{A cute helper for route generation}
   s.test_files = [
     "test/helper.rb",
