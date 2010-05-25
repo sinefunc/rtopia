@@ -78,4 +78,24 @@ class TestRtopia < Test::Unit::TestCase
     assert_equal '/users?user%5Blname%5D=Doe&user%5Bfname%5D=John', 
       R(:users, :user => { :lname => 'Doe', :fname => 'John' })
   end
+
+  def test_Rtopia_R_of_string_prefixed_with_slash
+    assert_equal '/the-right-path', R('/the-right-path') 
+  end
+
+  def test_Rtopia_R_of_string_prefix_with_http
+    assert_equal 'http://test.host/arg1/arg2', 
+      R('http://test.host', :arg1, :arg2)
+  end
+
+  def test_Rtopia_R_of_string_prefix_with_http_and_hash
+    assert_equal 'http://test.host/arg1/arg2?key1=value1&key2=value2', 
+      R('http://test.host', :arg1, :arg2, :key1 => :value1, :key2 => :value2)
+  end
+
+  def test_Rtopia_R_of_string_prefix_with_http_and_hash_and_suffixed
+    assert_equal 'http://test.host/arg1/arg2?key1=value1&key2=value2', 
+      R('http://test.host/', :arg1, :arg2, :key1 => :value1, :key2 => :value2)
+  end
+
 end

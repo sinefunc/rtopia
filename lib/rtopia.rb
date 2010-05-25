@@ -5,7 +5,7 @@ module Rtopia
   # In order to be able to do `Rtopia::R`, Rtopia needs to extend itself
   extend self
 
-  # Usage:
+  # @example
   #
   #    R(:items) # => /items
   #    
@@ -24,19 +24,35 @@ module Rtopia
   #    R(:user => { :lname => 'Doe', :fname => 'John' })
   #    => '?user[lname]=Doe&user[fname]=John'
   #
+  # @overload R()
+  #   @return [String] returns the root '/'
+  # @overload R(:arg1, :arg2, ..., :argN)
+  #   @return [String] all args joined on '/' prefixed with '/'
+  # @overload R(:arg1, :arg2, ..., :argN, hash)
+  #   @param [#to_param] arg1 any object checked for #to_param, #id, and #to_s
+  #   @param [#to_param] arg2 any object checked for #to_param, #id, and #to_s
+  #   @param [#to_param] argN any object checked for #to_param, #id, and #to_s
+  #   @param [Hash] hash to be represented as a query string.
+  #   @return [String] all args joined on '/' with the hash represented
+  #     as a query string.
+  # @overload R(hash)
+  #   @param [Hash] hash to be represented as a query string.
+  #   @return [String] the hash represented as a query string, prefix with a `?`
   def R(*args)
     hash = args.last.is_a?(Hash) ? args.pop : {}
 
-    # No args, so we opt to make ?q=Ruby&page=1 style URIs
-    if hash.any? and args.empty?
-      '?' + query_string(hash)
-    else
-      r = args.unshift('/').map { |arg| to_param(arg) }.join('/').squeeze('/')
+    return '?' + query_string(hash)  if hash.any? and args.empty?
+
+    host_with_port = args.shift  if args.first =~ /^(https?|ftp)/
+
+    path = args.unshift('/').map { |arg| to_param(arg) }.join('/').squeeze('/')
+
+    path.tap do |ret|
       if hash.any?
-        r << '?'
-        r << query_string(hash)
+        ret << '?'
+        ret << query_string(hash)
       end
-      r
+      ret.insert(0, host_with_port.gsub(/\/$/, ''))  if host_with_port
     end
   end
 
