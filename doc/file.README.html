@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=utf-8" />
+<title>Documentation by YARD 0.5.4</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Class List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>Rtopia</h1>
+
+<p>A very simple, but useful route generation helper for use anytime, anywhere.
+See documentation at <a href="http://labs.sinefunc.com/rtopia/doc">http://labs.sinefunc.com/rtopia/doc</a>.</p>
+
+<h2>Assumptions</h2>
+
+<p>It checks for a <code>to_param</code>, and if Ruby1.9 or greater is used, checks for an <code>id</code>. Last fallback uses <code>to_s</code>.</p>
+
+<h2>Examples</h2>
+
+<pre class="code"><span class='id include'>include</span> <span class='const'>Rtopia</span>
+
+<span class='const'>R</span><span class='lparen'>(</span><span class='symbol'>:items</span><span class='rparen'>)</span> <span class='comment'># =&gt; /items
+</span>
+<span class='comment'># this appears to be redundant, take it with a grain of salt
+</span><span class='comment'># although it would probably be used for consistency's sake
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='comment'># =&gt; '/'
+</span>
+<span class='ivar'>@person</span> <span class='op'>=</span> <span class='const'>Person</span><span class='period'>.</span><span class='id new'>new</span> <span class='comment'># has a to_param of john-doe
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='ivar'>@person</span><span class='rparen'>)</span> <span class='comment'># =&gt; '/john-doe'
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='ivar'>@person</span><span class='comma'>,</span> <span class='symbol'>:posts</span><span class='rparen'>)</span> <span class='comment'># =&gt; '/john-doe/posts'
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='ivar'>@person</span><span class='comma'>,</span> <span class='symbol'>:posts</span><span class='comma'>,</span> <span class='symbol'>:replied</span><span class='rparen'>)</span> <span class='comment'># =&gt; '/john-doe/posts/replied'
+</span>
+<span class='ivar'>@entry</span> <span class='op'>=</span> <span class='const'>Entry</span><span class='period'>.</span><span class='id create'>create</span> <span class='comment'># has an id of 1001 for example
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='ivar'>@entry</span><span class='rparen'>)</span> <span class='comment'># =&gt; '/1001'
+</span><span class='const'>R</span><span class='lparen'>(</span><span class='symbol'>:entry</span><span class='comma'>,</span> <span class='ivar'>@entry</span><span class='rparen'>)</span> <span class='comment'># =&gt; '/entry/1001'
+</span></pre></div></div>
+    
+    <div id="footer">
+  Generated on Tue May 25 14:53:50 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.5.4 (ruby-1.9.1).
+</div>
+
+  </body>
+</html>
