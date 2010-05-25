@@ -97,5 +97,9 @@ class TestRtopia < Test::Unit::TestCase
     assert_equal 'http://test.host/arg1/arg2?key1=value1&key2=value2', 
       R('http://test.host/', :arg1, :arg2, :key1 => :value1, :key2 => :value2)
   end
-
+  
+  def test_facebook_oauth_example
+    assert_equal "https://graph.facebook.com/oauth/authorize?client_id=123",
+      R('https://graph.facebook.com/oauth/authorize', :client_id => '123')
+  end
 end

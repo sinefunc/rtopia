@@ -54,6 +54,7 @@ module Rtopia
 
     path.tap do |ret|
       if hash.any?
+        ret.gsub!(/^\//, '')  if ret == '/'
         ret << '?'
         ret << query_string(hash)
       end
