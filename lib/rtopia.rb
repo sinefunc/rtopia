@@ -2,6 +2,8 @@ require 'uri'
 require 'cgi'
 
 module Rtopia
+  VERSION = 0.2.2
+
   # In order to be able to do `Rtopia::R`, Rtopia needs to extend itself
   extend self
 
