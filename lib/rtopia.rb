@@ -24,6 +24,9 @@ module Rtopia
   #    R(:user => { :lname => 'Doe', :fname => 'John' })
   #    => '?user[lname]=Doe&user[fname]=John'
   #
+  #    R("http://google.com/search", :q => "Robots")
+  #    => 'http://google.com/search?q=Robots'
+  #
   # @overload R()
   #   @return [String] returns the root '/'
   # @overload R(:arg1, :arg2, ..., :argN)
